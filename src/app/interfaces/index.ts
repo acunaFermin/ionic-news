@@ -26,6 +26,7 @@ export interface NewsResponses {
     [key: string] : {
       page: number,
       articles: Article[];
+      totalResults: number;
     }
 
   }

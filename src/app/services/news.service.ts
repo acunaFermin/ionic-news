@@ -9,7 +9,7 @@ import { Article, ArticlesByCategoryAndPage, NewsResponses } from '../interfaces
 })
 export class NewsService {
 
-  articlesByCategoryAndPage:ArticlesByCategoryAndPage = {};
+  private articlesByCategoryAndPage:ArticlesByCategoryAndPage = {};
 
   constructor( private http: HttpClient ) { }
 
@@ -27,16 +27,16 @@ export class NewsService {
 
   getTopHeadlines(): Observable<Article[]> {
     
-    return this.executeQuery<NewsResponses>(`/top-headlines?category=business`)
-    .pipe(
-      map(resp => resp.articles)
-    )
+    return this.getTopHeadlinesByCategory('business');
   }
 
 
   getTopHeadlinesByCategory( category:string, loadMore: boolean = false ):Observable<Article[]>{
     
-    if(loadMore){
+    if(
+      loadMore && 
+      this.articlesByCategoryAndPage[category].totalResults !== this.articlesByCategoryAndPage[category].articles.length //checkea que si se cargaron todos los resultados disponibles, no haga mas peticiones para ese articulo
+    ){
       return this.getArticlesByCategory( category );
     }
 
@@ -47,13 +47,16 @@ export class NewsService {
     return this.getArticlesByCategory( category );
   }
 
+
+
   private getArticlesByCategory( category:string ){
 
     if( ! Object.keys( this.articlesByCategoryAndPage ).includes( category ) ){
       
       this.articlesByCategoryAndPage[ category ] = {
         page: 0,
-        articles: []
+        articles: [],
+        totalResults: 0,
       }
 
     }
@@ -63,15 +66,15 @@ export class NewsService {
     console.log('peticion http realizada')
     return this.executeQuery<NewsResponses>(`/top-headlines?category=${category}&page=${page}`)
     .pipe(
-      map(({articles}) => {
+      map((resp) => {
 
-        if(articles.length === 0) return this.articlesByCategoryAndPage[category].articles;
+        if(resp.articles.length === 0) return this.articlesByCategoryAndPage[category].articles;
 
         this.articlesByCategoryAndPage[category] = {
 
           page: page,
-          articles: [ ...this.articlesByCategoryAndPage[category].articles, ...articles ]
-
+          articles: [ ...this.articlesByCategoryAndPage[category].articles, ...resp.articles ],
+          totalResults: resp.totalResults,
         }
 
         return this.articlesByCategoryAndPage[category].articles;
