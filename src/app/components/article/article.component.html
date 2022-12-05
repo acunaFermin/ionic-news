@@ -1,10 +1,25 @@
-<ion-card>
+<ion-card (click)="openArticle()">
   <ion-card-header>
     
     <ion-card-subtitle class="ion-margin">
+
+      <ion-row>
+        <ion-col class="ion-margin">
+          
+          <span class="text-primary ion-margin-end">{{ i + 1 }}</span>
+          <span class="article-source-name">{{ article.source.name }}</span>
+
+        </ion-col>
+
+        <ion-col align="right">
+          
+          <ion-button (click)="'onClick()'" fill="clear">
+            <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
       
-      <span class="text-primary ion-margin-end">{{ i + 1 }}</span>
-      <span class="article-source-name">{{ article.source.name }}</span>
 
     </ion-card-subtitle>
     

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Article } from 'src/app/interfaces';
 import { NewsService } from 'src/app/services/news.service';
 
@@ -10,6 +10,7 @@ import { NewsService } from 'src/app/services/news.service';
 })
 export class Tab1Page implements OnInit {
 
+  
   articles: Article[] = []
 
   constructor( private newsService: NewsService ) {}
@@ -18,6 +19,23 @@ export class Tab1Page implements OnInit {
     this.newsService.getTopHeadlines().subscribe( resp => {
       this.articles.push( ...resp )
     })
+  }
+
+  loadData( event:any ){
+
+
+    setTimeout(() => {
+      
+      this.newsService.getTopHeadlinesByCategory( 'business', true )
+      .subscribe( articles => {
+        this.articles = articles;
+  
+        event.target.complete();
+        
+      })
+      
+    }, 1000);
+
   }
 
 }

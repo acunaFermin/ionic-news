@@ -8,6 +8,10 @@ import { IonicModule,
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
+
+//plugins
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,8 +21,13 @@ import { AppComponent } from './app.component';
     HttpClientModule
   
   ],
-  providers: [{ provide: RouteReuseStrategy, 
-    useClass: IonicRouteStrategy }],
+  providers: [
+    { 
+      provide: RouteReuseStrategy, 
+      useClass: IonicRouteStrategy 
+    },
+    
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

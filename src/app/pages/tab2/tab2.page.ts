@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonInfiniteScroll } from '@ionic/angular';
 import { Article } from 'src/app/interfaces';
 import { NewsService } from 'src/app/services/news.service';
 
@@ -23,6 +24,7 @@ export class Tab2Page implements OnInit {
 
   selectedCategory:string = 'business'
 
+  @ViewChild( IonInfiniteScroll ) infiniteScroll!:IonInfiniteScroll;
 
   
   constructor( private newsService: NewsService ) {}
