@@ -29,8 +29,10 @@ export class Tab1Page implements OnInit {
       this.newsService.getTopHeadlinesByCategory( 'business', true )
       .subscribe( articles => {
         this.articles = articles;
-  
+        
+
         event.target.complete();
+
         
       })
       
