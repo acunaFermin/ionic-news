@@ -1,17 +1,24 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" mode="ios" class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Favoritos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-content" style="min-height: 100%;">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Favoritos</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <app-articles 
+    *ngIf="articles.length > 0"
+    [articles]="articles" 
+  ></app-articles>
+
+  <app-explore-container *ngIf="!(articles.length > 0)" name="Todavia no hay favoritos"></app-explore-container>
+
+
 </ion-content>

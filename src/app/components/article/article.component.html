@@ -1,4 +1,4 @@
-<ion-card (click)="openArticle()">
+<ion-card>
   <ion-card-header>
     
     <ion-card-subtitle class="ion-margin">
@@ -13,7 +13,7 @@
 
         <ion-col align="right">
           
-          <ion-button (click)="'onClick()'" fill="clear">
+          <ion-button (click)="openMenu()" fill="clear">
             <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
           </ion-button>
 
@@ -28,7 +28,7 @@
       {{article.title}}
     </ion-card-title>
 
-    <ion-img *ngIf="article.urlToImage" [src]="article.urlToImage"></ion-img>
+    <ion-img (click)="openArticle()" *ngIf="article.urlToImage" [src]="article.urlToImage"></ion-img>
 
   </ion-card-header>
   <ion-card-content>

@@ -11,12 +11,16 @@ import { AppComponent } from './app.component';
 
 
 //plugins
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
+import { IonicStorageModule } from '@ionic/storage-angular';
+
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   
@@ -26,7 +30,7 @@ import { AppComponent } from './app.component';
       provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy 
     },
-    
+    SocialSharing
   ],
   bootstrap: [AppComponent],
 })
